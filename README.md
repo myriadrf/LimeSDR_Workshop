@@ -17,3 +17,12 @@ The directory structure is as follows:
           NumptyDemo/            - 866MHz ASCII/BPSK transceiver
           SSBDemo/               - 866MHz SSB transceiver
           WindowsKit/            - Octave-LimeSDR interface
+
+      presentations/
+                                 - 0. Introduction to LimeSDR Workshop
+                                 - 1. What is “Digital Radio”
+                                 - 2. What is the LimeSDR
+                                 - 3. The Real Radio Link
+                                 - 4. Advance Digital Radio
+                                 - 5. LimeSuite and LimeSDR (demos)
+                                 - 6. Octave and LimeSDR (demos) 

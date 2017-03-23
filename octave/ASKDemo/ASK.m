@@ -28,10 +28,10 @@ clear all;
 close all;
 useLimeSDR=true;
 leaveSDRrunningAfter=false;
-saveGraphs=false;
+saveGraphs=true;
 minPktLength=8192; % Current LimeSDR requirement
 itt=3;
-fpltname='Numpty1';
+fpltname='ASK';
 fwfm=strcat(fpltname,'.wfm');
 FSR=1; % Sample rate frequency
 fLMSsettings='DEMO_1Msps_866MHz_-50dBm.ini';
