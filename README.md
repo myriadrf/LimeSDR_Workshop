@@ -33,3 +33,15 @@ The directory structure is as follows:
                                  - 4. Advance Digital Radio
                                  - 5. LimeSuite and LimeSDR (demos)
                                  - 6. Octave and LimeSDR (demos) 
+
+## Licensing
+
+The materials in this repository are copyright 2017 Lime Microsystems.
+
+### Software
+
+Software is provided under the Apache 2.0 License.
+
+### Presentation
+
+The presentations are Creative Commons Attribution 4.0.
