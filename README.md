@@ -18,6 +18,13 @@ The directory structure is as follows:
           SSBDemo/               - 866MHz SSB transceiver
           WindowsKit/            - Octave-LimeSDR interface
 
+      pothos/
+                                 - 950MHz Rx
+                                 - 2.42GHz Tx
+                                 - 866MHz TxRx
+                                 - Controls demo
+                                 - QPSK modem
+
       presentations/
                                  - 0. Introduction to LimeSDR Workshop
                                  - 1. What is “Digital Radio”
