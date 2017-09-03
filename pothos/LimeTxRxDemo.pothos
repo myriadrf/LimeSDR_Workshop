@@ -7,7 +7,7 @@
             "graphObjects" : [
                 {
                     "activeEditTab" : "Clocking",
-                    "affinityZone" : "gui",
+                    "affinityZone" : "",
                     "enabled" : true,
                     "id" : "SDRSource1",
                     "inputDesc" : [
