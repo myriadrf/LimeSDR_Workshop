@@ -1,9 +1,8 @@
 
-
 What is this
 ============
 
-This software module is a simple 866MHz FSK transceiver example for education purposes with the LimeSDR.  It runs using Octave, an open source numerical package that provides a relatively easy programming environment for communication systems.
+This software module is a simple 866MHz W-CDMA transceiver example for education purposes with the LimeSDR.  It runs using Octave, an open source numerical package that provides a relatively easy programming environment for communication systems.
 
 
 Getting Started
@@ -52,7 +51,9 @@ Using this Software Module
 
 Start octave on your computer
 
-run FSK.m % to execute the FSK Demo
+run WCDMADL.m % to run W-CDMA DL example
+
+run WCDMAUL.m % to run W-CDMA UL example
 
 
 Software License

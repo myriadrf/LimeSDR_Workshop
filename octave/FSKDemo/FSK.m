@@ -30,7 +30,7 @@ clear all;
 close all;
 useLimeSDR=true;
 leaveSDRrunningAfter=false;
-saveGraphs=false;
+saveGraphs=true;
 minPktLength=8192; % Current LimeSDR requirement
 itt=3;
 fpltname='FSK';

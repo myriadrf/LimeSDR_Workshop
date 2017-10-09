@@ -27,6 +27,7 @@
 %
 %   S E T T I N G S
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clear all;
 close all;
 useLimeSDR=true;
@@ -42,9 +43,11 @@ fwfm=strcat(fpltname,'.wfm');
 FSR=1; % Sample rate frequency
 fLMSsettings='DEMO_1Msps_866MHz_-50dBm.ini';
 pkg load communications % not loaded automatically in Octave >3.8.2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   G E N E R A T E   T R A N S M I T   S I G N A L
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % generate BPSK sync word
 % '+' similar to 'k' and opposite of 'T', use double sync word to avoid false lock
 sync=2*reshape(de2bi('++',8,2,'left-msb')',1,[])-1; % convert binary sync word to BPSK
@@ -69,11 +72,14 @@ sprdSpecSig=pilot+msg; % CDMA type signal
 osr=8; % x8 Oversampling
 alpha=0.22; % define roll off of the RRC filter
 symbols=6; % length of FIR in BPSK symbols
-hrrc=FIRMakeCoefsRRCOdd( alpha,symbols,osr ); % make RRC FIR impulse response
-iqDataTx=AutoScalePk(FIRTimeCP(UpSample(sprdSpecSig,osr), hrrc )); % do RRC filtering
+%hrrc=FIRMakeCoefsRRCOdd( alpha,symbols,osr ); % make RRC FIR impulse response
+%iqDataTx=AutoScalePk(FIRTimeCP(UpSample(sprdSpecSig,osr), hrrc )); % do RRC filtering
+iqDataTx=FIRCycRRC(sprdSpecSig,alpha,symbols,osr,1); % do RRC filtering
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   R A D I O   S E T U P
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if useLimeSDR==true 
 	LoadLimeSuite; 	% LimeSDR initialisation and use
 	LimeInitialize();
@@ -85,19 +91,24 @@ end
 
 figure;
 for cint=1:itt  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %
   %   P R O C E S S   R E C E I V E   S I G N A L
   %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  if useLimeSDR==true 
 	  iqDataRx = LimeReceiveSamples(length(iqDataTx));
   else % if not using LimeSDR, patch transmit stream direct to RX
   	iqDataRx=shift(iqDataTx,13);
   end
   iqDataRxRaw=iqDataRx;
-  iqDataRx=FIRTimeCP(iqDataRx,hrrc); % use FIR to improve receive SNR after subsampling 
+%  iqDataRx=FIRTimeCP(iqDataRx,hrrc); % use FIR to improve receive SNR after subsampling 
+  iqDataRx=FIRCycRRC(iqDataRx,alpha,symbols,osr,0); % use FIR to improve receive SNR after subsampling 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   S Y N C H R O N I S A T I O N
 % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   macfBest=0;
   lacfBest=0;
   acfBest=0;
@@ -119,9 +130,11 @@ for cint=1:itt
       printf('cstart=%i lacf=%i macf=%i phacf=%g\n', cstart,lacfBest,macfBest,phBest*180/pi);
     end
   end 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   %
   %   R E A D    M E S S A G E
   %
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   % align message for demod
   din=shift(iqDataRx,cstart+osr*(1-lacfBest)); % 
   din=exp(-i*phBest)*din(1:osr:(osr*length(pilot))); % phase correct signal
@@ -142,9 +155,11 @@ for cint=1:itt
   printf('Encoded BER=%i in %i bits\n',berenc,length(doutEnc));
   printf('Decoded BER=%i in %i bits\n',berunc,length(doutDec));
 end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 %   R A D I O   S H U T D O W N
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if (leaveSDRrunningAfter==false) && (useLimeSDR==true)
   printf('Purging LimeSDR resources\n'); 
   LimeLoopWFMStop(); % stop streaming

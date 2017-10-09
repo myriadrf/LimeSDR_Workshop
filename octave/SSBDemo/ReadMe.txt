@@ -14,31 +14,12 @@ You will require the following software installed on your machine.
 Octave 3.8.2 - 4.0.3 
 --------------------
 
-Needs communications, signal, control, general packages installed
-
-Linux users can usually install these with a package manager, e.g. Synaptic
-
-Windows users, the download contains the packages.
-
-Otherwise
-https://www.gnu.org/software/octave/
-https://octave.sourceforge.io/communications/
-https://octave.sourceforge.io/control/
-https://octave.sourceforge.io/signal/
-https://octave.sourceforge.io/general/
+Please see separate readme file.
 
 LimeSuite
 ---------
 
-Follow the instructions at
-https://wiki.myriadrf.org/Lime_Suite
-
-Linux users, you will need to download the source and build, so as to have access to the octave library.  After building...
-cd ~/LimeSuite/octave
-make
-Then copy LimeSuite.oct and LimeSuite.m file into this directory
-
-Windows users, execute build.m octave script in the library provided.  Copy LimeSuite.dll, LimeSuite.oct and LoadLimeSuite.m into this directory.
+Please see separate readme file.
 
 LimeSDR
 -------
@@ -69,13 +50,7 @@ https://www.ofcom.org.uk/__data/assets/pdf_file/0020/69050/statement.pdf
 Using this Software Module
 ==========================
 
-Ensure the .oct files from LimeSuite are added to this library.
-
 Start octave on your computer
-
-pkg list % to see if the communications package is present.
-
-run build.m % to build any required .oct functions
 
 run ssb_trx.m % to execute the ASK Demo
 
